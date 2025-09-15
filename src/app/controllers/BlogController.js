@@ -34,9 +34,7 @@ class BlogController {
     // res.render("blogs/create");
     const { name, description, level } = req.body;
     if (!name || !description || !level) {
-      res
-        .status(404)
-        .json({ status: 404, message: "All fields are required!" });
+      res.status(404).json({ status: 404, message: "All fields are required!" });
     }
     try {
       const newBlog = await Blog.create({

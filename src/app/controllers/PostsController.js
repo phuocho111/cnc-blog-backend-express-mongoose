@@ -7,18 +7,17 @@ class NewsController {
   async Posts(req, res, next) {
     try {
       const { pageNumber, pageSize } = req.query;
-      const posts = await Post.find().sort({ createdAt: -1 });
       const currentPage = Number(pageNumber);
       const perPage = Number(pageSize);
+      const posts = await Post.find()
+        .sort({ createdAt: -1 })
+        .skip((currentPage - 1) * perPage)
+        .limit(perPage);
       const totalItems = posts.length;
       const totalPage = Math.ceil(totalItems / perPage);
-      const startIndex = (currentPage - 1) * perPage;
-      const endIndex = startIndex + perPage;
-
-      const paggingData = posts.slice(startIndex, endIndex);
       if (pageNumber && pageSize) {
         res.json({
-          posts: paggingData,
+          posts,
           totalPosts: posts.length,
           totalPage,
           currentPage,
@@ -79,10 +78,7 @@ class NewsController {
   // [PUT] /Update post
   async Update(req, res, next) {
     try {
-      const postUpdate = await Post.updateOne(
-        { post_id: Number(req.params.id) },
-        req.body
-      );
+      const postUpdate = await Post.updateOne({ post_id: Number(req.params.id) }, req.body);
       res.json(postUpdate);
     } catch (err) {
       next(err);
@@ -105,9 +101,7 @@ class NewsController {
   async Create(req, res, next) {
     const { title, content, description, image, categories } = req.body;
     if (!title || !content || !description || !image || !categories) {
-      res
-        .status(404)
-        .json({ status: 404, message: "All fields are required!" });
+      res.status(404).json({ status: 404, message: "All fields are required!" });
     }
     try {
       const newPost = await Post.create({

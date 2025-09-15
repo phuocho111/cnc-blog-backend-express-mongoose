@@ -19,7 +19,7 @@ const Blog = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 // Add plugins to the schema
 mongoose.plugin(slug);

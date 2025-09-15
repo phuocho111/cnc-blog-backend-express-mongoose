@@ -38,7 +38,7 @@ const User = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 User.plugin(autoIncrement, { inc_field: "id" });

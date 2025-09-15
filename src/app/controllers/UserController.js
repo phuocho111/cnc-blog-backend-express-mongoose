@@ -8,15 +8,8 @@ class UserController {
   // [POST] /register create user
   async register(req, res, next) {
     try {
-      const {
-        username,
-        email,
-        password,
-        confirmPassword,
-        fullName,
-        dateOfBirth,
-        avatarImageUrl,
-      } = req.body;
+      const { username, email, password, confirmPassword, fullName, dateOfBirth, avatarImageUrl } =
+        req.body;
       if (
         !username ||
         !email ||
@@ -26,15 +19,11 @@ class UserController {
         !dateOfBirth ||
         !avatarImageUrl
       ) {
-        res
-          .status(400)
-          .json({ status: 400, message: "All fields are mandatory!" });
+        res.status(400).json({ status: 400, message: "All fields are mandatory!" });
       }
       const userAvailable = await User.findOne({ username });
       if (userAvailable) {
-        res
-          .status(400)
-          .json({ status: 400, message: "User already registered!" });
+        res.status(400).json({ status: 400, message: "User already registered!" });
       }
 
       // Hash password
@@ -51,9 +40,7 @@ class UserController {
         // res.status(201).json({ _id: user.id, email: user.email });
         res.status(201).json({ message: "User registered successfully" });
       } else {
-        res
-          .status(400)
-          .json({ status: 400, message: "User data us not valid!" });
+        res.status(400).json({ status: 400, message: "User data us not valid!" });
       }
     } catch (err) {
       next(err);
@@ -64,9 +51,7 @@ class UserController {
     try {
       const { username, password } = req.body;
       if (!username || !password) {
-        res
-          .status(400)
-          .json({ status: 400, message: "All fields are mandatory!" });
+        res.status(400).json({ status: 400, message: "All fields are mandatory!" });
       }
       const user = await User.findOne({
         username,
@@ -82,16 +67,14 @@ class UserController {
             },
           },
           process.env.ACCESS_TOKEN_SECRET,
-          { expiresIn: "30d" }
+          { expiresIn: "30d" },
         );
         res.status(200).json({
           token: accessToken,
           userId: user.id,
         });
       } else {
-        res
-          .status(401)
-          .json({ status: 401, message: "Username or password is not valid" });
+        res.status(401).json({ status: 401, message: "Username or password is not valid" });
       }
     } catch (err) {
       next(err);

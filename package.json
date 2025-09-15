@@ -20,7 +20,10 @@
     "mongoose-delete": "^1.0.2",
     "mongoose-sequence": "^6.0.1",
     "mongoose-slug-generator": "^1.0.4",
-    "multer": "^2.0.2"
+    "multer": "^2.0.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0"
   },
   "lint-staged": {
     "src/**/*.{js,json,scss}": "prettier --single-quote --trailing-comma all --tab-width 4 --write"
@@ -31,11 +34,14 @@
     }
   },
   "devDependencies": {
+    "@eslint/js": "^9.35.0",
+    "eslint": "^9.35.0",
+    "globals": "^16.4.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.0",
     "morgan": "^1.10.0",
     "node-sass": "^9.0.0",
     "nodemon": "^3.1.10",
-    "prettier": "^3.5.3"
+    "prettier": "3.6.2"
   }
 }
