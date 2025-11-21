@@ -3,7 +3,6 @@ const path = require("path");
 const router = express.Router();
 const multer = require("multer");
 const uploadController = require("../app/controllers/UploadController");
-const validateToken = require("../app/middleware/validateTokenHandler");
 
 // // Cấu hình Multer
 const storage = multer.diskStorage({
@@ -17,6 +16,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post("/Images", upload.single("file"), uploadController.image);
+router.post("/images", upload.single("file"), uploadController.image);
 
 module.exports = router;

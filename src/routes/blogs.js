@@ -6,12 +6,12 @@ const validateToken = require("../app/middleware/validateTokenHandler");
 // router.use(validateToken);
 
 router.get("/", blogController.list);
-router.post("/", validateToken, blogController.create);
-router.get("/:id", validateToken, blogController.edit);
-router.put("/:id", validateToken, blogController.update);
-router.patch("/:id/restore", validateToken, blogController.restore);
-router.delete("/:id", validateToken, blogController.delete);
-router.delete("/:id/force", validateToken, blogController.forceDelete);
-router.get("/:slug", validateToken, blogController.detail);
+router.post("/", validateToken.validateTokenHeader, blogController.create);
+router.get("/:id", validateToken.validateTokenHeader, blogController.edit);
+router.put("/:id", validateToken.validateTokenHeader, blogController.update);
+router.patch("/:id/restore", validateToken.validateTokenHeader, blogController.restore);
+router.delete("/:id", validateToken.validateTokenHeader, blogController.delete);
+router.delete("/:id/force", validateToken.validateTokenHeader, blogController.forceDelete);
+router.get("/:slug", validateToken.validateTokenHeader, blogController.detail);
 
 module.exports = router;

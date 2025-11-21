@@ -11,9 +11,18 @@ const swaggerDocs = require("./swagger");
 cors = require("cors");
 const route = require("./routes");
 const db = require("./config/db");
+const cookieParser = require("cookie-parser");
+
+// set cookie
+app.use(cookieParser());
 
 // Condition CORS
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  }),
+);
 
 // Connect to database
 db.connect();

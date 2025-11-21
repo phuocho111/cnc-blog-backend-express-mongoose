@@ -7,13 +7,13 @@ const uploadRouter = require("./upload");
 const categoryRouter = require("./category");
 
 function route(app) {
-  app.use("/api/Posts", postsRouter);
-  app.use("/api/Me", meRouter);
-  app.use("/api/About", aboutRouter);
-  app.use("/api/Blogs", blogRouter);
-  app.use("/api/Users", userRouter);
-  app.use("/api/Upload", uploadRouter);
-  app.use("/api/Categories", categoryRouter);
+  app.use("/api/posts", postsRouter);
+  app.use("/api/me", meRouter);
+  app.use("/api/about", aboutRouter);
+  app.use("/api/blogs", blogRouter);
+  app.use("/api/users", userRouter);
+  app.use("/api/upload", uploadRouter);
+  app.use("/api/categories", categoryRouter);
 }
 
 module.exports = route;
