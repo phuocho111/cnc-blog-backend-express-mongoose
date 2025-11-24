@@ -106,8 +106,6 @@ const login = async (req, res, next) => {
       res.status(200).json({
         userId: user.id,
         userRole: "user",
-        accessToken,
-        refreshToken,
       });
     } else {
       res.status(401).json({ status: 401, message: "Username or password is not valid" });
