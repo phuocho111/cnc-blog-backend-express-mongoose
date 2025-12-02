@@ -93,14 +93,14 @@ const login = async (req, res, next) => {
         secure: isProduction,
         sameSite: "strict",
         path: "/",
-        maxAge: 1 * 60 * 1000,
+        maxAge: 15 * 60 * 1000, // 15 minutes
       });
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
         secure: isProduction,
         sameSite: "strict",
         path: "/",
-        maxAge: 15 * 60 * 1000,
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
 
       res.status(200).json({
@@ -124,7 +124,7 @@ const logOut = async (req, res, next) => {
     res.clearCookie("refreshToken", { path: "/" });
     res.status(200).send({ message: "Logged out successfully." });
   } catch (error) {
-    res.status(500).send({ error: "Failed to log out." });
+    res.status(500).send({ message: "Failed to log out." });
   }
 };
 //[POST] / refresh
