@@ -100,7 +100,11 @@ const login = async (req, res, next) => {
         secure: isProduction,
         sameSite: "strict",
         path: "/",
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 15 minutes
+      });
+      res.cookie("isLoggedIn", true, {
+        path: "/",
+        maxAge: 15 * 60 * 1000, // 7 days
       });
 
       res.status(200).json({
@@ -122,27 +126,45 @@ const logOut = async (req, res, next) => {
     await User.findOneAndUpdate({ refreshToken }, { refreshToken: null });
     res.clearCookie("accessToken", { path: "/" });
     res.clearCookie("refreshToken", { path: "/" });
+    res.clearCookie("isLoggedIn", { path: "/" });
     res.status(200).send({ message: "Logged out successfully." });
   } catch (error) {
     res.status(500).send({ message: "Failed to log out." });
   }
 };
 //[POST] / refresh
-const refresh = async (req, res, next) => {
+const refreshToken = async (req, res, next) => {
   const { refreshToken } = req.cookies;
+  console.log(refreshToken);
 
-  if (!refreshToken) return res.sendStatus(401);
-
-  // check DB
-  const user = await User.findOne({ refreshToken });
-  if (!user) return res.sendStatus(403);
+  if (!refreshToken) {
+    return res.status(401).json({ message: "No refresh token provided" });
+  }
 
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
-    if (err) return res.sendStatus(403);
+    if (err) {
+      return res.status(403).json({ message: "Invalid refresh token" });
+    }
 
-    const newAccessToken = this.generateAccessToken(user);
+    const newAccessToken = generateAccessToken(decoded);
+    const isProduction = process.env.ENV_DEPLOY === "production";
+    // Set cookie HttpOnly
+    res.cookie("accessToken", newAccessToken, {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: "strict",
+      path: "/",
+      maxAge: 15 * 60 * 1000, // 15 minutes
+    });
 
-    return res.json({ accessToken: newAccessToken });
+    res.cookie("isLoggedIn", true, {
+      path: "/",
+      maxAge: 15 * 60 * 1000, // 7 days
+    });
+
+    return res.json({
+      message: "Access token refreshed",
+    });
   });
 };
 // [GET] /current
@@ -158,6 +180,6 @@ module.exports = {
   register,
   login,
   logOut,
-  refresh,
+  refreshToken,
   profile,
 };

@@ -5,7 +5,7 @@ const validateToken = require("../app/middleware/validateTokenHandler");
 
 router.get("/", postsController.Posts);
 router.get("/user", validateToken.validateTokenCookie, postsController.UserOfPosts);
-router.get("/:slug", postsController.PostDetail);
+router.get("/:slug", validateToken.validateTokenCookie, postsController.PostDetail);
 router.post("/", validateToken.validateTokenCookie, postsController.Create);
 router.get("/user/:id", validateToken.validateTokenCookie, postsController.Edit);
 router.put("/user/:id", validateToken.validateTokenCookie, postsController.Update);
