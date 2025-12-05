@@ -50,7 +50,8 @@ class NewsController {
   // [GET] /User of posts
   async UserOfPosts(req, res, next) {
     try {
-      const userOfPosts = await Post.find({ user_id: req.user.id });
+      const { user_id } = req.cookies;
+      const userOfPosts = await Post.find({ user_id });
       res.json(multiplemongooseToObject(userOfPosts));
     } catch (err) {
       next(err);
@@ -103,6 +104,7 @@ class NewsController {
     if (!title || !content || !description || !image || !categories) {
       res.status(404).json({ status: 404, message: "All fields are required!" });
     }
+    const { user_id } = req.cookies;
     try {
       const newPost = await Post.create({
         title,
@@ -110,7 +112,7 @@ class NewsController {
         description,
         image,
         categories,
-        user_id: req.user.id, // Lấy user_id từ req.user
+        user_id, // Lấy user_id từ req.user
       });
 
       res.status(201).json(newPost);

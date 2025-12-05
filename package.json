@@ -7,7 +7,12 @@
     "beautiful": "lint-staged",
     "start": "nodemon --inspect src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --ext js,yaml src/server.js"
+    "dev": "nodemon --ext js,yaml src/server.js",
+    "lint": "eslint . --ext .js,.ts",
+    "lint:fix": "eslint . --ext .js,.ts --fix",
+    "format": "prettier --check src/",
+    "format:fix": "prettier --write src/",
+    "prepare": "husky"
   },
   "author": "",
   "license": "ISC",
@@ -28,22 +33,22 @@
     "swagger-ui-express": "^5.0.1",
     "yamljs": "^0.3.0"
   },
-  "lint-staged": {
-    "src/**/*.{js,json,scss}": "prettier --single-quote --trailing-comma all --tab-width 4 --write"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "@eslint/js": "^9.35.0",
     "eslint": "^9.35.0",
     "globals": "^16.4.0",
-    "husky": "^9.1.7",
+    "husky": "^8.0.0",
     "lint-staged": "^16.1.0",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.10",
     "prettier": "3.6.2"
+  },
+  "lint-staged": {
+    "src/**/*.{js,ts,css,json,md}": [
+      "yarn format",
+      "yarn lint"
+    ]
   }
 }

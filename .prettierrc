@@ -3,5 +3,16 @@
   "useTabs": false,
   "printWidth": 100,
   "singleQuote": false,
-  "proseWrap": "preserve"
+  "proseWrap": "preserve",
+  "semi": true,
+  "trailingComma": "all",
+  "endOfLine": "lf",
+  "overrides": [
+    {
+      "files": "*.yaml",
+      "options": {
+        "plugins": []
+      }
+    }
+  ]
 }
