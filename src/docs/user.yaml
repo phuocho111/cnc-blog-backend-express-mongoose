@@ -92,7 +92,7 @@ paths:
       tags:
         - Profile
       summary: Lấy thông tin profile của người dùng hiện tại
-      description: Trả về thông tin người dùng; yêu cầu header Authorization: Bearer &lt;token&gt;
+      description: "Trả về thông tin người dùng; yêu cầu header Authorization: Bearer &lt;token&gt;"
       security:
         - bearerAuth: []
       responses:

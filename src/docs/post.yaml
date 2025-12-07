@@ -41,7 +41,6 @@ paths:
       summary: Get all Posts.
       tags:
         - Posts
-      summary: Get posts.
       operationId: post
       requestBody:
         description: Created user object
@@ -67,7 +66,6 @@ paths:
       summary: Get all Posts.
       tags:
         - Posts
-      summary: Get posts.
       operationId: post
       parameters:
         - name: blogName
@@ -125,7 +123,6 @@ paths:
       summary: Get categories.
       tags:
         - Categories
-      summary: Get categories.
       operationId: categories
       parameters:
         - name: categoryName

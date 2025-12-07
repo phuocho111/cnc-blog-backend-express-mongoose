@@ -30,6 +30,7 @@ class BlogController {
       next(err);
     }
   }
+  // [POST] /blog
   async create(req, res, next) {
     // res.render("blogs/create");
     const { name, description, level } = req.body;
@@ -65,6 +66,7 @@ class BlogController {
       next(error);
     }
   }
+
   // [PUT] /blogs/:id
   async update(req, res, next) {
     try {
@@ -75,6 +77,7 @@ class BlogController {
       next(error);
     }
   }
+
   // [DELETE] /blogs/:id
   async delete(req, res, next) {
     try {
@@ -85,6 +88,7 @@ class BlogController {
       next(error);
     }
   }
+
   // [PATCH] /blogs/:id/restore
   async restore(req, res, next) {
     try {
@@ -95,6 +99,7 @@ class BlogController {
       next(error);
     }
   }
+
   // [DELETE] /blogs/:id/force
   async forceDelete(req, res, next) {
     try {
