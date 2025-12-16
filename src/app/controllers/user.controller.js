@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -100,11 +100,11 @@ const login = async (req, res, next) => {
         secure: isProduction,
         sameSite: "strict",
         path: "/",
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 15 minutes
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
       res.cookie("isLoggedIn", true, {
         path: "/",
-        maxAge: 15 * 60 * 1000, // 7 days
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
 
       res.status(200).json({
@@ -155,11 +155,6 @@ const refreshToken = async (req, res, next) => {
       sameSite: "strict",
       path: "/",
       maxAge: 15 * 60 * 1000, // 15 minutes
-    });
-
-    res.cookie("isLoggedIn", true, {
-      path: "/",
-      maxAge: 15 * 60 * 1000, // 7 days
     });
 
     return res.json({

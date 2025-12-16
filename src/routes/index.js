@@ -1,10 +1,10 @@
-const postsRouter = require("./posts");
-const meRouter = require("./me");
-const aboutRouter = require("./about");
-const blogRouter = require("./blogs");
-const userRouter = require("./users");
-const uploadRouter = require("./upload");
-const categoryRouter = require("./category");
+const postsRouter = require("./posts.route");
+const meRouter = require("./me.route");
+const aboutRouter = require("./about.route");
+const blogRouter = require("./blogs.route");
+const userRouter = require("./users.route");
+const uploadRouter = require("./upload.route");
+const categoryRouter = require("./category.route");
 
 function route(app) {
   app.use("/api/posts", postsRouter);

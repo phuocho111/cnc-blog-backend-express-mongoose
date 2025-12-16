@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const blogController = require("../app/controllers/BlogController");
+const blogController = require("../app/controllers/blog.controller");
 const validateToken = require("../app/middleware/validateTokenHandler");
 
 // router.use(validateToken);

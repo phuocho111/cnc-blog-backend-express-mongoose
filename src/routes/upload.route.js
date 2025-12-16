@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const router = express.Router();
 const multer = require("multer");
-const uploadController = require("../app/controllers/UploadController");
+const uploadController = require("../app/controllers/upload.controller");
 
 // // Cấu hình Multer
 const storage = multer.diskStorage({

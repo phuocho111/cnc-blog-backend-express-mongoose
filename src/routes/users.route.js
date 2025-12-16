@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const userController = require("../app/controllers/UserController");
+const userController = require("../app/controllers/user.controller");
 const validateToken = require("../app/middleware/validateTokenHandler");
 
 router.post("/", userController.register);

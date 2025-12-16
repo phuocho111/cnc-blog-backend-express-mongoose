@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const postsController = require("../app/controllers/PostsController");
+const postsController = require("../app/controllers/posts.controller");
 const validateToken = require("../app/middleware/validateTokenHandler");
 
 router.get("/", postsController.Posts);

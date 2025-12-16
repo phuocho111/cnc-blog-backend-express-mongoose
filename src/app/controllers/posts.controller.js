@@ -1,4 +1,4 @@
-const Post = require("../models/Post");
+const Post = require("../models/post.model");
 const { mongooseToObject } = require("../../util/mongoose");
 const { multiplemongooseToObject } = require("../../util/mongoose");
 const { formatSlug } = require("../../util/format");
@@ -104,9 +104,13 @@ class NewsController {
     if (!title || !content || !description || !image || !categories) {
       res.status(404).json({ status: 404, message: "All fields are required!" });
     }
+    const postTitle = await Post.findOne({ title });
+    if (postTitle) {
+      res.status(400).json({ status: 400, message: "The title already exists.!" });
+    }
     const { user_id } = req.cookies;
     try {
-      const newPost = await Post.create({
+      await Post.create({
         title,
         content,
         description,
@@ -115,7 +119,6 @@ class NewsController {
         user_id, // Lấy user_id từ req.user
       });
 
-      res.status(201).json(newPost);
       res.status(201).json({
         status: 201,
         message: "Post created successfully",
