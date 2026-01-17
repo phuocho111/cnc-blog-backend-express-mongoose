@@ -135,8 +135,6 @@ const logOut = async (req, res, next) => {
 //[POST] / refresh
 const refreshToken = async (req, res, next) => {
   const { refreshToken } = req.cookies;
-  console.log(refreshToken);
-
   if (!refreshToken) {
     return res.status(401).json({ message: "No refresh token provided" });
   }

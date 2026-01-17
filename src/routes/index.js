@@ -13,7 +13,7 @@ function route(app) {
   app.use("/api/blogs", blogRouter);
   app.use("/api/users", userRouter);
   app.use("/api/upload", uploadRouter);
-  app.use("/api/categories", categoryRouter);
+  app.use("/api/categories", validateToken.validateTokenCookie, categoryRouter);
 }
 
 module.exports = route;
