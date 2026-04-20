@@ -1,4 +1,4 @@
-const Blog = require("../models/Blog");
+const Blog = require("../models/blog.model");
 const { multiplemongooseToObject } = require("../../util/mongoose");
 
 class MeController {

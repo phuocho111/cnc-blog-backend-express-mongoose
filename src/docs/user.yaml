@@ -1,0 +1,145 @@
+openapi: 3.0.0
+info:
+  title: Users API
+  description: API quản lý người dùng
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8888
+    description: Local
+
+paths:
+  /api/Users:
+    post:
+      tags:
+        - User
+      summary: Create user.
+      description: This can only be done by the logged in user.
+      operationId: createUser
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /api/Users/Login:
+    post:
+      summary: Đăng nhập user
+      description: API cho phép user đăng nhập bằng username và password
+      tags:
+        - Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  format: username
+                  example: phuocht
+                password:
+                  type: string
+                  format: password
+                  example: 123456789
+      responses:
+        "200":
+          description: Đăng nhập thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                    description: JWT access token
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+                  refreshToken:
+                    type: string
+                    description: JWT refresh token
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ...
+        "401":
+          description: Sai thông tin đăng nhập
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unauthorized
+  /api/Users/profile:
+    get:
+      tags:
+        - Profile
+      summary: Lấy thông tin profile của người dùng hiện tại
+      description: "Trả về thông tin người dùng; yêu cầu header Authorization: Bearer &lt;token&gt;"
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Thông tin profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "401":
+          $ref: '#/components/schemas/User'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 123
+        username:
+          type: string
+          example: "example"
+        email:
+          type: string
+          example: "a@example.com"
+        fullName: 
+          type: string
+          example: "example"
+        dateOfBirth: 
+          type: date
+          example: "example"
+        avatarImageUrl: 
+          type: string
+          example: "example"
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: "Invalid request"
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

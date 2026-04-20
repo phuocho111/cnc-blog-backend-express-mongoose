@@ -1,4 +1,4 @@
-const Blog = require("../models/Blog");
+const Blog = require("../models/blog.model");
 const { mongooseToObject } = require("../../util/mongoose");
 const { multiplemongooseToObject } = require("../../util/mongoose");
 
@@ -30,13 +30,12 @@ class BlogController {
       next(err);
     }
   }
+  // [POST] /blog
   async create(req, res, next) {
     // res.render("blogs/create");
     const { name, description, level } = req.body;
     if (!name || !description || !level) {
-      res
-        .status(404)
-        .json({ status: 404, message: "All fields are required!" });
+      res.status(404).json({ status: 404, message: "All fields are required!" });
     }
     try {
       const newBlog = await Blog.create({
@@ -67,6 +66,7 @@ class BlogController {
       next(error);
     }
   }
+
   // [PUT] /blogs/:id
   async update(req, res, next) {
     try {
@@ -77,6 +77,7 @@ class BlogController {
       next(error);
     }
   }
+
   // [DELETE] /blogs/:id
   async delete(req, res, next) {
     try {
@@ -87,6 +88,7 @@ class BlogController {
       next(error);
     }
   }
+
   // [PATCH] /blogs/:id/restore
   async restore(req, res, next) {
     try {
@@ -97,6 +99,7 @@ class BlogController {
       next(error);
     }
   }
+
   // [DELETE] /blogs/:id/force
   async forceDelete(req, res, next) {
     try {

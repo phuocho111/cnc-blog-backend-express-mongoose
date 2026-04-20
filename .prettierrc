@@ -1,0 +1,18 @@
+{
+  "tabWidth": 2,
+  "useTabs": false,
+  "printWidth": 100,
+  "singleQuote": false,
+  "proseWrap": "preserve",
+  "semi": true,
+  "trailingComma": "all",
+  "endOfLine": "lf",
+  "overrides": [
+    {
+      "files": "*.yaml",
+      "options": {
+        "plugins": []
+      }
+    }
+  ]
+}

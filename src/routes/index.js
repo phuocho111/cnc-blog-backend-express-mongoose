@@ -1,19 +1,19 @@
-const postsRouter = require("./posts");
-const meRouter = require("./me");
-const aboutRouter = require("./about");
-const blogRouter = require("./blogs");
-const userRouter = require("./users");
-const uploadRouter = require("./upload");
-const categoryRouter = require("./category");
+const postsRouter = require("./posts.route");
+const meRouter = require("./me.route");
+const aboutRouter = require("./about.route");
+const blogRouter = require("./blogs.route");
+const userRouter = require("./users.route");
+const uploadRouter = require("./upload.route");
+const categoryRouter = require("./category.route");
 
 function route(app) {
-  app.use("/api/Posts", postsRouter);
-  app.use("/api/Me", meRouter);
-  app.use("/api/About", aboutRouter);
-  app.use("/api/Blogs", blogRouter);
-  app.use("/api/Users", userRouter);
-  app.use("/api/Upload", uploadRouter);
-  app.use("/api/Categories", categoryRouter);
+  app.use("/api/posts", postsRouter);
+  app.use("/api/me", meRouter);
+  app.use("/api/about", aboutRouter);
+  app.use("/api/blogs", blogRouter);
+  app.use("/api/users", userRouter);
+  app.use("/api/upload", uploadRouter);
+  app.use("/api/categories", validateToken.validateTokenCookie, categoryRouter);
 }
 
 module.exports = route;

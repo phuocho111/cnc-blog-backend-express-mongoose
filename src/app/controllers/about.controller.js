@@ -1,7 +1,7 @@
 class AboutController {
   // [GET] /about
   index(req, res) {
-    res.render('about');
+    res.render("about");
   }
 }
 
